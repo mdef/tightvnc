@@ -16,9 +16,8 @@ windows_package node['tightvnc']['package_name'] do
     options "/quiet INSTALLDIR=\"#{node['tightvnc']['home']}\""
     notifies :create_if_missing, "cookbook_file[#{Chef::Config[:cookbook_path]}/tightvnc/#{tightvnc['settings_file']}]"
     notifies :run, "windows_batch[import_settings]"
-#    notifies :modify, "windows_registry[HKEY_LOCAL_MACHINE\\SOFTWARE\\TightVNC\\Server]"
     notifies :restart, "service[tvnserver]"
-Chef::Log.info("Installing ******77777777777"+tightvnc['settings_file'])
+Chef::Log.info("Installing "+tightvnc['settings_file'])
     action :install
 end
 
@@ -35,22 +34,7 @@ windows_batch "import_settings" do
       reg import #{Chef::Config[:cookbook_path]}/tightvnc/#{tightvnc['settings_file']}
       EOH
 action :nothing
-#      action :run
 end
-
-#windows_registry 'HKEY_LOCAL_MACHINE\SOFTWARE\TightVNC\Server' do
-#    values 'Password' => "af2864a310c05517".chr
-    #tightvnc['password']
-#    type :binary
-#    action :modify
-#end
-
-
-#
-#windows_registry 'HKEY_LOCAL_MACHINE\SOFTWARE\TightVNC' do
-#    values 'Password' => tightvnc['password']
-#    action :modify
-#end
 
 
 service "tvnserver" do
