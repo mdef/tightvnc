@@ -1,4 +1,13 @@
-tightvnc
-========
+Description
+===========
+Installs/Configures tightvnc
 
-tightvnc
+Requirements
+============
+
+Attributes
+==========
+
+Usage
+=====
+
